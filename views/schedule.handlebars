@@ -1,0 +1,36 @@
+<div class="main">
+  <div class="project daysProject">
+    <div class="headDiv">
+      <h1 class="head">SELECT DAYS</h1>
+    </div>
+    <div class="stateMessage">
+      <p class="state"></p>
+    </div>
+    <p class="scheduleTxt">Select days which you will be available to work
+      below:</p>
+    <div class="form daysForm">
+      <form action="/waiters/{{waiterName}}" method="post">
+       {{#each daysState}}
+             
+        <div>
+          <div class="label">
+            <label for={{this.weekDay}}>{{this.weekDay}}</label>
+          </div>
+          <div class="day">
+            <input
+              type="checkbox"
+              name="day"
+              class="daySelect {{this.weekDay}} {{this.checkedState}}"
+              value='{{this.weekDay}}'/>
+          
+          </div>
+        </div>
+            
+        {{/each}}
+          {{#if selectedDays}}
+            <button class="scheduleBtn" type="submit">UPDATE</button>
+            {{else}}
+            <button class="scheduleBtn" type="submit">SCHEDULE</button>
+            {{/if}}
+          </form>
+       

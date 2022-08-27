@@ -1,0 +1,44 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/waiters.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="main">
+      <div class="nameSection">
+        <div class="headDiv">
+          <h1 class="head">Waiter Schedule</h1>
+        </div>
+        <p class="text">
+          Please enter your name below and proceed to selecting the days you
+          will be available to work
+        </p>
+        <div class="decoration">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div class="errorDiv">
+          <p class="errorMsg {{errorStyle}}">{{messages.info}}</p>
+        </div>
+        <div class="form">
+          <form action="/waiters" method="POST">
+            <input
+              type="text"
+              name="name"
+              class="inputName"
+              placeholder="Enter your name"
+              autocomplete="off"
+            />
+            <button class="proceedBtn" type="submit">PROCEED</button>
+            <p class="optionTxt">OR</p>
+            <a href="/login" class="adminLnk">See schedule</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

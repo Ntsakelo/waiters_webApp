@@ -1,0 +1,266 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&display=swap");
+
+html {
+  font-family: "Quicksand", sans-serif;
+}
+
+.main {
+  width: 100%;
+  height: 100vh;
+  background-color: #9883d8;
+}
+.project {
+  position: relative;
+  width: 70%;
+  height: 280px;
+  background-color: white;
+  margin: auto;
+  top: 100px;
+}
+.daysProject {
+  height: 350px;
+}
+.nameSection {
+  height: 450px;
+  position: relative;
+  width: 70%;
+  /* height: 280px; */
+  background-color: white;
+  margin: auto;
+  top: 100px;
+}
+.headDiv {
+  position: relative;
+  background-color: #9883d8;
+  width: 70%;
+  margin: auto;
+  top: 10px;
+}
+.head {
+  text-align: center;
+  display: block;
+  color: white;
+}
+.text {
+  text-align: center;
+}
+.decoration {
+  height: 20px;
+
+  text-align: center;
+}
+.decoration div {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-left: 5px;
+  border-radius: 50%;
+  background-color: #d5cff2;
+}
+.errorDiv {
+  border: 1px solid white;
+  height: 32px;
+  width: 317px;
+  margin: auto;
+  margin-bottom: 5px;
+}
+.noShow {
+  opacity: 0;
+}
+/* Error messages */
+.danger {
+  display: block;
+  color: red;
+}
+.successful {
+  display: block;
+  color: green;
+}
+form {
+  text-align: center;
+}
+.inputName {
+  height: 35px;
+  font-size: 17px;
+  outline: none;
+  border: 1px solid #bea8ff;
+}
+.proceedBtn {
+  height: 35px;
+  font-size: 17px;
+  background-color: #9883d8;
+  color: white;
+  border: none;
+}
+.proceedBtn:hover {
+  cursor: pointer;
+}
+.inputName::placeholder {
+  font-size: 20px;
+}
+.adminLnk {
+  text-decoration: none;
+  color: #9883d8;
+}
+/* days */
+.daysProject {
+  height: 420px;
+}
+.stateMessage {
+  text-align: center;
+  height: 20px;
+  color: rgb(40, 218, 40);
+}
+.scheduleTxt {
+  text-align: center;
+}
+.daysForm div {
+  margin-bottom: 5px;
+}
+.day {
+  width: 20px;
+  display: inline-block;
+}
+.label {
+  border: 1px solid white;
+  width: 100px;
+  display: inline-block;
+}
+.scheduleBtn {
+  height: 35px;
+  font-size: 17px;
+  background-color: #9883d8;
+  color: white;
+  border: none;
+  margin-top: 5px;
+}
+.scheduleBtn:hover {
+  cursor: pointer;
+}
+/* Login page */
+.loginTxt {
+  text-align: center;
+}
+.loginError {
+  text-align: center;
+}
+.password {
+  display: block;
+  margin: auto;
+  height: 30px;
+  font-size: 17px;
+  outline: none;
+  border: 1px solid #bea8ff;
+}
+.userName {
+  display: block;
+  margin: auto;
+  height: 30px;
+  font-size: 17px;
+  outline: none;
+  border: 1px solid #bea8ff;
+  margin-bottom: 20px;
+}
+.loginBtn {
+  height: 35px;
+  font-size: 17px;
+  background-color: #9883d8;
+  color: white;
+  border: none;
+  margin-top: 10px;
+}
+.loginBtn:hover {
+  cursor: pointer;
+}
+/* scheduledDays */
+.scheduleSection {
+  width: 100%;
+  height: 100vh;
+  background-color: #9883d8;
+}
+.scheduleTable {
+  position: relative;
+  width: 95%;
+  height: 500px;
+  background-color: white;
+  margin: auto;
+  top: 50px;
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border: 1px solid #d5cff2;
+  border-collapse: collapse;
+}
+th {
+  border: 1px solid #d5cff2;
+  color: #9883d8;
+}
+td {
+  height: 200px;
+  vertical-align: top;
+  border: 1px solid #d5cff2;
+}
+li {
+  list-style-type: none;
+  background-color: #bea8ff;
+  margin-bottom: 5px;
+  width: 70px;
+}
+
+.unavailable {
+  color: white;
+  background-color: rgb(253, 135, 92);
+}
+.available {
+  color: white;
+  background-color: rgb(126, 211, 126);
+}
+/* Media queries */
+@media screen and (max-width: 290px) {
+  .inputName {
+    font-size: 16px;
+  }
+  .project {
+    width: 90%;
+  }
+  .errorDiv {
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 415px) {
+  .nameSection {
+    height: 450px;
+    width: 90%;
+  }
+  .daysProject {
+    height: 470px;
+  }
+  .errorDiv {
+    width: 200px;
+  }
+
+  .inputName {
+    display: block;
+    margin: auto;
+  }
+  .proceedBtn {
+    display: block;
+    margin: auto;
+    margin-top: 7px;
+  }
+}
+@media screen and (min-width: 520px) {
+  .nameSection {
+    height: 300px;
+  }
+}
+@media screen and (max-width: 840px) {
+  .name {
+    display: block;
+    width: 300px;
+    margin: auto;
+    margin-top: 5px;
+  }
+}
