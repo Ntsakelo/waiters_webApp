@@ -3,6 +3,7 @@ import flash from "express-flash";
 export default function WaitersRoutes(waiters, waitersData) {
   let days;
   let userName = "";
+
   function defaultEntry(req, res) {
     res.render("index", {
       errorStyle: waiters.errorMessage().includes("Perfect")
@@ -24,9 +25,6 @@ export default function WaitersRoutes(waiters, waitersData) {
     res.redirect("/waiters/" + waiterName);
   }
   async function chooseDays(req, res) {
-    //populateDays() => Monday, Tuesday, wednesday, thursday, friday, saturday, sunday
-    //compareDays() => Monday, thursday, saturday;
-
     res.render("schedule", {
       waiterName: waiters.waiterName(),
       weekDays: await waitersData.populateDays(),
@@ -36,8 +34,9 @@ export default function WaitersRoutes(waiters, waitersData) {
   }
   async function submitSchedule(req, res) {
     let username = req.params.username;
-    let days = req.body.day;
-    await waitersData.scheduleName(username, days);
+    let selectedDays = req.body.day;
+
+    await waitersData.scheduleName(username, selectedDays);
     res.redirect("/waiters/" + username);
   }
   function showLogin(req, res) {

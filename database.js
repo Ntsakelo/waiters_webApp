@@ -1,10 +1,14 @@
 export default function WaitersData(db) {
   async function checkName(username) {
-    let count = await db.oneOrNone(
-      "select count(*) from waiters_names where firstname = $1",
-      [username]
-    );
-    return Number(count.count);
+    try {
+      let count = await db.oneOrNone(
+        "select count(*) from waiters_names where firstname = $1",
+        [username]
+      );
+      return Number(count.count);
+    } catch (err) {
+      console.log(err);
+    }
   }
   async function populateDays() {
     try {
@@ -32,6 +36,11 @@ export default function WaitersData(db) {
   async function scheduleName(username, days) {
     try {
       let idList = await getDayId(days);
+      if ((await checkName(username)) > 0) {
+        await db.none("delete from waiters_names where firstname = $1", [
+          username,
+        ]);
+      }
       if (idList.length >= 3) {
         await db.none("insert into waiters_names (firstname) values ($1)", [
           username,
@@ -83,6 +92,8 @@ export default function WaitersData(db) {
       console.log(err);
     }
   }
+
+  ///Code refactor this logic
   async function compareDays(selectedDays) {
     //week days => Monday, Tuesday, wednesday, thursday, friday, saturday, sunday
     //selected days => Monday, thursday, saturday;
@@ -114,11 +125,16 @@ export default function WaitersData(db) {
       console.log(err);
     }
   }
+  //Join the three tables
+  async function scheduleView() {
+    // SELECT wd.week_day, wd.id, wn.id, wn.firstname, ws.name_id, ws.day_id FROM working_days AS wd, waiters_names AS wn, waiters_schedule AS ws WHERE wn.id = ws.name_id AND wd.id = ws.day_id;
+  }
   //return
   return {
     populateDays,
     scheduleName,
     checkedDays,
     compareDays,
+    scheduleView,
   };
 }
