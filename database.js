@@ -126,15 +126,12 @@ export default function WaitersData(db) {
     }
   }
   //Join the three tables
-  async function scheduleView() {
-    // SELECT wd.week_day, wd.id, wn.id, wn.firstname, ws.name_id, ws.day_id FROM working_days AS wd, waiters_names AS wn, waiters_schedule AS ws WHERE wn.id = ws.name_id AND wd.id = ws.day_id;
-  }
+
   //return
   return {
     populateDays,
     scheduleName,
     checkedDays,
     compareDays,
-    scheduleView,
   };
 }

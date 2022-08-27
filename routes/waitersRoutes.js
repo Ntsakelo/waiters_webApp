@@ -25,6 +25,7 @@ export default function WaitersRoutes(waiters, waitersData) {
     res.redirect("/waiters/" + waiterName);
   }
   async function chooseDays(req, res) {
+    await waitersData.scheduleView();
     res.render("schedule", {
       waiterName: waiters.waiterName(),
       weekDays: await waitersData.populateDays(),
@@ -43,7 +44,14 @@ export default function WaitersRoutes(waiters, waitersData) {
     res.render("admin");
   }
   function schedulePage(req, res) {
-    res.render("days");
+    res.render("days", {
+      list: [
+        { Sunday: ["Ntsako"] },
+        { Monday: ["Ntsakelo", "Maxwell"] },
+        { Tuesday: ["Maxwell", "Mbongi"] },
+        { Wednesday: ["Lebogang", "Daisy", "Tumelo"] },
+      ],
+    });
   }
   function viewSchedule(req, res) {
     res.redirect("/days");

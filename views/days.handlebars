@@ -11,13 +11,55 @@
         <th class="scheduleDay saturday">Sat</th>
       </tr>
       <tr>
-        <td><li>Ntsakelo</li></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>
+          {{#each list}}
+            {{#each Sunday}}
+              <li>{{this}}</li>
+            {{/each}}
+          {{/each}}
+        </td>
+        <td>
+          {{#each list}}
+            {{#each Monday}}
+              <li>{{this}}</li>
+            {{/each}}
+          {{/each}}
+        </td>
+        <td>
+          {{#each list}}
+            {{#each Tuesday}}
+              <li>{{this}}</li>
+            {{/each}}
+          {{/each}}
+        </td>
+        <td>
+          {{#each list}}
+            {{#each Wednesday}}
+              <li>{{this}}</li>
+            {{/each}}
+          {{/each}}
+        </td>
+        <td>
+          {{#each list}}
+            {{#each Thursday}}
+              <li>{{this}}</li>
+            {{/each}}
+          {{/each}}
+        </td>
+        <td>
+          {{#each list}}
+            {{#each Friday}}
+              <li>{{this}}</li>
+            {{/each}}
+          {{/each}}
+        </td>
+        <td>
+          {{#each list}}
+            {{#each Saturday}}
+              <li>{{this}}</li>
+            {{/each}}
+          {{/each}}
+        </td>
       </tr>
     </table>
   </div>
