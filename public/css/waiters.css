@@ -175,16 +175,21 @@ form {
 /* scheduledDays */
 .scheduleSection {
   width: 100%;
-  height: 100vh;
+  height: 800px;
   background-color: #9883d8;
 }
-.scheduleTable {
-  position: relative;
+.allSchedule {
+  height: 700px;
   width: 95%;
-  height: 500px;
   background-color: white;
+  position: relative;
+  top: 20px;
   margin: auto;
-  top: 50px;
+}
+.scheduleTable {
+  width: 100%;
+  height: 230px;
+  background-color: white;
   overflow-x: auto;
 }
 table {
@@ -207,7 +212,90 @@ li {
   margin-bottom: 5px;
   width: 70px;
 }
+.changes {
+  height: 300px;
+  width: 50%;
+  margin: auto;
+  margin-top: 50px;
+}
+.updtSection {
+  height: 200px;
+  width: 200px;
+  display: inline;
+  float: left;
+  box-shadow: 5px 5px 5px 5px rgb(197, 193, 193);
+}
+.updtForm {
+  text-align: center;
+}
+.updtname {
+  margin-top: 10px;
+  margin-bottom: 20px;
 
+  height: 30px;
+  outline: none;
+  border: 1px solid #bea8ff;
+}
+.fromDays {
+  margin-bottom: 20px;
+  width: 170px;
+  height: 30px;
+  outline: none;
+  border: 1px solid #bea8ff;
+}
+.toDays {
+  margin-bottom: 10px;
+  width: 170px;
+  height: 30px;
+  outline: none;
+  border: 1px solid #bea8ff;
+}
+.updtBtn {
+  height: 35px;
+  font-size: 17px;
+  background-color: #9883d8;
+  color: white;
+  border: none;
+  margin-top: 5px;
+}
+.updtBtn:hover {
+  cursor: pointer;
+}
+.deleteSection {
+  height: 200px;
+  width: 200px;
+  display: inline;
+  float: right;
+  box-shadow: 5px 5px 5px 5px rgb(197, 193, 193);
+}
+.deletename {
+  margin-top: 10px;
+  margin-bottom: 20px;
+
+  height: 30px;
+  outline: none;
+  border: 1px solid red;
+}
+.deleteFrom {
+  margin-bottom: 10px;
+  width: 170px;
+  height: 30px;
+  outline: none;
+  border: 1px solid red;
+}
+.deleteBtn {
+  display: block;
+  margin: auto;
+  height: 35px;
+  font-size: 17px;
+  background-color: red;
+  color: white;
+  border: none;
+  margin-top: 5px;
+}
+.deleteBtn:hover {
+  cursor: pointer;
+}
 .unavailable {
   color: white;
   background-color: rgb(253, 135, 92);
@@ -217,6 +305,29 @@ li {
   background-color: rgb(126, 211, 126);
 }
 /* Media queries */
+@media screen and (max-width: 850px) {
+  .scheduleSection {
+    width: 100%;
+    height: 800px;
+    background-color: #9883d8;
+  }
+  .changes {
+    height: 470px;
+    width: 100%;
+    margin-top: 0px;
+  }
+  .updtSection {
+    display: block;
+    margin: auto;
+    margin-bottom: 10px;
+    float: none;
+  }
+  .deleteSection {
+    display: block;
+    margin: auto;
+    float: none;
+  }
+}
 @media screen and (max-width: 290px) {
   .inputName {
     font-size: 16px;
@@ -251,6 +362,7 @@ li {
     margin-top: 7px;
   }
 }
+
 @media screen and (min-width: 520px) {
   .nameSection {
     height: 300px;
@@ -262,5 +374,10 @@ li {
     width: 300px;
     margin: auto;
     margin-top: 5px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .changes {
+    width: 40%;
   }
 }

@@ -46,12 +46,6 @@ export default function WaitersRoutes(waiters, waitersData) {
   async function schedulePage(req, res) {
     await waitersData.scheduleList();
     res.render("days", {
-      // list: [
-      //   { Sunday: ["Ntsako"] },
-      //   { Monday: ["Ntsakelo", "Maxwell"] },
-      //   { Tuesday: ["Maxwell", "Mbongi"] },
-      //   { Wednesday: ["Lebogang", "Daisy", "Tumelo"] },
-      // ],
       list: await waitersData.scheduleList(),
     });
   }
