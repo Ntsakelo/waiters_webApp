@@ -12,7 +12,12 @@ export default function WaitersData(db) {
   }
   async function populateDays() {
     try {
-      return await db.manyOrNone("select week_day from working_days");
+      let weeklyDays = [];
+      let results = await db.manyOrNone("select week_day from working_days");
+      for (let i = 0; i < results.length; i++) {
+        weeklyDays.push(results[i].week_day);
+      }
+      return weeklyDays;
     } catch (err) {
       console.log(err);
     }
@@ -83,10 +88,10 @@ export default function WaitersData(db) {
             "select week_day from working_days where id = $1",
             [currentId]
           );
-          weekdays.push(day);
+          weekdays.push(day.week_day);
         }
       }
-      //console.log(weekdays);
+
       return weekdays;
     } catch (err) {
       console.log(err);
@@ -98,40 +103,54 @@ export default function WaitersData(db) {
     //week days => Monday, Tuesday, wednesday, thursday, friday, saturday, sunday
     //selected days => Monday, thursday, saturday;
     try {
-      let checkedArr = [];
-      let weeklyArr = [];
       let isCheckedArr = [];
-      let weeklyDays = await populateDays();
-      for (let i = 0; i < weeklyDays.length; i++) {
-        weeklyArr.push(weeklyDays[i].week_day);
-      }
-      for (let i = 0; i < selectedDays.length; i++) {
-        checkedArr.push(selectedDays[i].week_day);
-      }
-      weeklyArr.some((val) => {
-        isCheckedArr.push(checkedArr.includes(val));
-      });
-
       let allArr = [];
-      for (let i = 0; i < weeklyArr.length; i++) {
+      let weeklyDays = await populateDays();
+      weeklyDays.some((val) => {
+        isCheckedArr.push(selectedDays.includes(val));
+      });
+      for (let i = 0; i < weeklyDays.length; i++) {
         let allObject = {};
-        allObject["weekDay"] = weeklyArr[i];
+        allObject["weekDay"] = weeklyDays[i];
         allObject["checkedState"] = isCheckedArr[i];
         allArr.push(allObject);
       }
       return allArr;
-      // return isCheckedArr;
     } catch (err) {
       console.log(err);
     }
   }
-  //Join the three tables
-
+  async function scheduleList() {
+    try {
+      let weeklyDays = await populateDays();
+      let scheduleList = [];
+      for (let i = 0; i < weeklyDays.length; i++) {
+        let testingArr = [];
+        let currentDay = weeklyDays[i];
+        let schedObj = {};
+        let results = await db.manyOrNone(
+          "select firstname,week_day from schedule_list where week_day =$1",
+          [currentDay]
+        );
+        results.forEach((element) => {
+          testingArr.push(element.firstname);
+        });
+        if (schedObj[currentDay] === undefined) {
+          schedObj[currentDay] = testingArr;
+        }
+        scheduleList.push(schedObj);
+      }
+      return scheduleList;
+    } catch (err) {
+      console.log(err);
+    }
+  }
   //return
   return {
     populateDays,
     scheduleName,
     checkedDays,
     compareDays,
+    scheduleList,
   };
 }
