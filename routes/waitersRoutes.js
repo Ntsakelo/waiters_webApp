@@ -52,6 +52,19 @@ export default function WaitersRoutes(waiters, waitersData) {
   function viewSchedule(req, res) {
     res.redirect("/days");
   }
+  async function updateWaiter(req, res) {
+    let waiterName = req.body.updtname;
+    let currentDay = req.body.currentDay;
+    let newDay = req.body.newDay;
+    await waitersData.moveWaiter(waiterName, currentDay, newDay);
+    res.redirect("/days");
+  }
+  async function deleteWaiter(req, res) {
+    let waiterName = req.body.deletename;
+    let currentDay = req.body.currentDay;
+    await waitersData.removeWaiter(waiterName, currentDay);
+    res.redirect("/days");
+  }
   return {
     defaultEntry,
     showLogin,
@@ -60,5 +73,7 @@ export default function WaitersRoutes(waiters, waitersData) {
     submitSchedule,
     viewSchedule,
     schedulePage,
+    updateWaiter,
+    deleteWaiter,
   };
 }

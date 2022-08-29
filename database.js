@@ -33,6 +33,7 @@ export default function WaitersData(db) {
         );
         idList.push(results[0].id);
       }
+
       return idList;
     } catch (err) {
       console.log(err);
@@ -145,6 +146,62 @@ export default function WaitersData(db) {
       console.log(err);
     }
   }
+  async function getWaiterId(username) {
+    try {
+      let results = await db.oneOrNone(
+        "select id from waiters_names where firstname = $1",
+        [username]
+      );
+      return results.id;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function currentDayId(currentDay) {
+    let results = await db.oneOrNone(
+      "select id from working_days where week_day = $1",
+      [currentDay]
+    );
+    return results.id;
+  }
+  async function newDayId(newDay) {
+    let results = await db.oneOrNone(
+      "select id from working_days where week_day = $1",
+      [newDay]
+    );
+    return results.id;
+  }
+  async function moveWaiter(username, currentDay, newDay) {
+    try {
+      let waiterId = await getWaiterId(username);
+      let oldDayId = await currentDayId(currentDay);
+      let nowDayId = await newDayId(newDay);
+      await db.none(
+        "update waiters_schedule set day_id = $1 where name_id = $2 and day_id = $3",
+        [nowDayId, waiterId, oldDayId]
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function removeWaiter(username, currentDay) {
+    try {
+      if (currentDay === "all") {
+        await db.none("delete from waiters_names where firstname =$1", [
+          username,
+        ]);
+        return;
+      }
+      let waiterId = await getWaiterId(username);
+      let nowDayId = await currentDayId(currentDay);
+      await db.none(
+        "delete from waiters_schedule where name_id =$1 and day_id =$2",
+        [waiterId, nowDayId]
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
   //return
   return {
     populateDays,
@@ -152,5 +209,7 @@ export default function WaitersData(db) {
     checkedDays,
     compareDays,
     scheduleList,
+    moveWaiter,
+    removeWaiter,
   };
 }

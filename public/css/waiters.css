@@ -219,11 +219,11 @@ li {
   margin-top: 50px;
 }
 .updtSection {
-  height: 200px;
-  width: 200px;
+  height: 300px;
+  width: 300px;
   display: inline;
   float: left;
-  box-shadow: 5px 5px 5px 5px rgb(197, 193, 193);
+  box-shadow: 5px 5px 5px 5px #f4f3fe;
 }
 .updtForm {
   text-align: center;
@@ -231,21 +231,21 @@ li {
 .updtname {
   margin-top: 10px;
   margin-bottom: 20px;
-
+  width: 280px;
   height: 30px;
   outline: none;
   border: 1px solid #bea8ff;
 }
 .fromDays {
   margin-bottom: 20px;
-  width: 170px;
+  width: 280px;
   height: 30px;
   outline: none;
   border: 1px solid #bea8ff;
 }
 .toDays {
   margin-bottom: 10px;
-  width: 170px;
+  width: 280px;
   height: 30px;
   outline: none;
   border: 1px solid #bea8ff;
@@ -256,39 +256,41 @@ li {
   background-color: #9883d8;
   color: white;
   border: none;
+  display: block;
+  margin: auto;
   margin-top: 5px;
 }
 .updtBtn:hover {
   cursor: pointer;
 }
 .deleteSection {
-  height: 200px;
-  width: 200px;
+  height: 300px;
+  width: 300px;
   display: inline;
   float: right;
-  box-shadow: 5px 5px 5px 5px rgb(197, 193, 193);
+  box-shadow: 5px 5px 5px 5px #f4f3fe;
 }
 .deletename {
   margin-top: 10px;
   margin-bottom: 20px;
-
+  width: 280px;
   height: 30px;
   outline: none;
-  border: 1px solid red;
+  border: 1px solid rgb(193, 14, 14);
 }
 .deleteFrom {
   margin-bottom: 10px;
-  width: 170px;
+  width: 280px;
   height: 30px;
   outline: none;
-  border: 1px solid red;
+  border: 1px solid rgb(193, 14, 14);
 }
 .deleteBtn {
   display: block;
   margin: auto;
   height: 35px;
   font-size: 17px;
-  background-color: red;
+  background-color: rgb(168, 17, 17);
   color: white;
   border: none;
   margin-top: 5px;
@@ -305,11 +307,40 @@ li {
   background-color: rgb(126, 211, 126);
 }
 /* Media queries */
+@media screen and (width: 280px) {
+  .updtSection {
+    width: 200px;
+  }
+  .deleteSection {
+    width: 200px;
+  }
+  .updtname {
+    width: 170px;
+  }
+  .fromDays {
+    width: 170px;
+  }
+  .toDays {
+    width: 170px;
+  }
+  .deletename {
+    width: 170px;
+  }
+  .deleteFrom {
+    width: 170px;
+  }
+}
 @media screen and (max-width: 850px) {
+  .scheduleTable {
+    margin-bottom: 30px;
+  }
   .scheduleSection {
     width: 100%;
-    height: 800px;
+    height: 1000px;
     background-color: #9883d8;
+  }
+  .allSchedule {
+    height: 900px;
   }
   .changes {
     height: 470px;
@@ -319,7 +350,7 @@ li {
   .updtSection {
     display: block;
     margin: auto;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     float: none;
   }
   .deleteSection {
@@ -328,6 +359,7 @@ li {
     float: none;
   }
 }
+
 @media screen and (max-width: 290px) {
   .inputName {
     font-size: 16px;
@@ -376,8 +408,13 @@ li {
     margin-top: 5px;
   }
 }
+@media screen and (width: 1024px) {
+  .changes {
+    width: 70%;
+  }
+}
 @media screen and (min-width: 1200px) {
   .changes {
-    width: 40%;
+    width: 55%;
   }
 }

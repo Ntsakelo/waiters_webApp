@@ -69,7 +69,7 @@
     <div class="changes">
 
       <div class="updtSection">
-        <form action="" class="updtForm">
+        <form action="/update" class="updtForm" method="POST">
           <input
             type="text"
             name="updtname"
@@ -77,7 +77,7 @@
             placeholder="Enter waiter name"
           />
 
-          <select name="fromDays" id="fromDays" class="fromDays">
+          <select name="currentDay" id="fromDays" class="fromDays">
             <option value="">MOVE FROM</option>
             <option value="Monday">Monday</option>
             <option value="Tuesday">Tuesday</option>
@@ -88,7 +88,7 @@
             <option value="Sunday">Sunday</option>
           </select>
 
-          <select name="toDays" id="toDays" class="toDays">
+          <select name="newDay" id="toDays" class="toDays">
             <option value="">MOVE TO</option>
             <option value="Monday">Monday</option>
             <option value="Tuesday">Tuesday</option>
@@ -103,14 +103,14 @@
 
       </div>
       <div class="deleteSection">
-        <form action="" class="deleteForm">
+        <form action="/delete" class="deleteForm" method="POST">
           <input
             type="text"
             name="deletename"
             class="deletename"
             placeholder="Enter waiter name"
           />
-          <select name="deleteFrom" id="deleteFrom" class="deleteFrom">
+          <select name="currentDay" id="deleteFrom" class="deleteFrom">
             <option value="">DELETE FROM</option>
             <option value="all">All</option>
             <option value="Monday">Monday</option>
