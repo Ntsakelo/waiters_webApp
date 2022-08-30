@@ -44,8 +44,13 @@ export default function WaitersRoutes(waiters, waitersData) {
     try {
       let username = req.params.username;
       let selectedDays = req.body.day;
-      if (selectedDays.length < 3) {
-        req.flash("schedule", "Please select atleast 3 days");
+
+      if (!selectedDays) {
+        req.flash("schedule", "Please select days below!");
+        res.redirect("/waiters/" + username);
+      } else if (selectedDays.length < 3 && selectedDays.length >= 1) {
+        req.flash("schedule", "Please select atleast 3 days!");
+        res.redirect("/waiters/" + username);
       }
       await waitersData.scheduleName(username, selectedDays);
       res.redirect("/waiters/" + username);
@@ -129,7 +134,7 @@ export default function WaitersRoutes(waiters, waitersData) {
       }
       let results = await waitersData.checkNameInDay(waiterName, currentDay);
       let nameCheck = await waitersData.checkName(waiterName);
-      if (nameCheck > 0 && Number(results.count <= 0)) {
+      if (nameCheck > 0 && currentDay !== "all" && Number(results.count <= 0)) {
         req.flash("delete", "Waiter not scheduled for this day!");
         waiterName = "";
         currentDay = "";
