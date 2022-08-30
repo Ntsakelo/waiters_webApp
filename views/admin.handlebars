@@ -1,16 +1,26 @@
 <div class="main">
-  <div class="project">
+  <div class="project adminProject">
     <div class="headDiv adminHead">
       <h1 class="head">Admin Login</h1>
     </div>
     <div class="loginError">
-      <p class="loginMessage"></p>
+      <p class="loginMessage">{{messages.login}}</p>
     </div>
     <p class="loginTxt">Please enter your login details to view the schedule</p>
     <div class="login">
       <form action="/login" method="post" class="loginForm">
-        <input type="text" class="userName" placeholder="Enter username" />
-        <input type="password" class="password" placeholder="Enter password" />
+        <input
+          type="text"
+          name="adminName"
+          class="userName"
+          placeholder="Enter username"
+        />
+        <input
+          type="password"
+          class="password"
+          name="password"
+          placeholder="Enter password"
+        />
         <button type="submit" class="loginBtn">Login</button>
       </form>
     </div>

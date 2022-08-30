@@ -1,13 +1,17 @@
 <div class="main">
-  <div class="project daysProject">
+  <div class="daysProject">
     <div class="headDiv">
       <h1 class="head">SELECT DAYS</h1>
     </div>
     <div class="stateMessage">
-      <p class="state"></p>
+      <p class="state">{{messages.schedule}}</p>
     </div>
-    <p class="scheduleTxt">Select days which you will be available to work
+    {{#if selectedDays}}
+     <p class="scheduleTxt">Well done {{waiterName}}.Keep in mind that the admin may reschedule you.You will definitely see the changes.You can update your working days below:</p> 
+    {{else}}
+    <p class="scheduleTxt">Welcome {{waiterName}},Select days which you will be available to work
       below:</p>
+     {{/if}} 
     <div class="form daysForm">
       <form action="/waiters/{{waiterName}}" method="post">
        {{#each daysState}}
@@ -33,6 +37,4 @@
             <button class="scheduleBtn" type="submit">SCHEDULE</button>
             {{/if}}
           </form>
-          {{#if selectedDays}}
-           <a href="/">Refresh</a>
-          {{/if}}
+        

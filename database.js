@@ -173,35 +173,64 @@ export default function WaitersData(db) {
   }
   async function moveWaiter(username, currentDay, newDay) {
     try {
-      let waiterId = await getWaiterId(username);
-      let oldDayId = await currentDayId(currentDay);
-      let nowDayId = await newDayId(newDay);
-      await db.none(
-        "update waiters_schedule set day_id = $1 where name_id = $2 and day_id = $3",
-        [nowDayId, waiterId, oldDayId]
-      );
+      if (username && currentDay && newDay) {
+        let waiterId = await getWaiterId(username);
+        let oldDayId = await currentDayId(currentDay);
+        let nowDayId = await newDayId(newDay);
+        await db.none(
+          "update waiters_schedule set day_id = $1 where name_id = $2 and day_id = $3",
+          [nowDayId, waiterId, oldDayId]
+        );
+      } else {
+        return;
+      }
     } catch (err) {
       console.log(err);
     }
   }
   async function removeWaiter(username, currentDay) {
     try {
-      if (currentDay === "all") {
-        await db.none("delete from waiters_names where firstname =$1", [
-          username,
-        ]);
-        return;
+      if (username && currentDay) {
+        let userCount = await checkName(username);
+        if (currentDay === "all" && userCount > 0) {
+          await db.none("delete from waiters_names where firstname =$1", [
+            username,
+          ]);
+          return;
+        }
+        let waiterId = await getWaiterId(username);
+        let nowDayId = await currentDayId(currentDay);
+        await db.none(
+          "delete from waiters_schedule where name_id =$1 and day_id =$2",
+          [waiterId, nowDayId]
+        );
       }
-      let waiterId = await getWaiterId(username);
-      let nowDayId = await currentDayId(currentDay);
-      await db.none(
-        "delete from waiters_schedule where name_id =$1 and day_id =$2",
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function deleteWaiters() {
+    try {
+      await db.none("delete from waiters_names");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function checkNameInDay(waiterName, newDay) {
+    try {
+      let waiterId = await getWaiterId(waiterName);
+      let nowDayId = await newDayId(newDay);
+      return await db.oneOrNone(
+        "select count(*) from schedule_list where name_id = $1 and day_id =$2",
         [waiterId, nowDayId]
       );
     } catch (err) {
       console.log(err);
     }
   }
+  // function countWaiters(){
+  //   let function
+  // }
   //return
   return {
     populateDays,
@@ -211,5 +240,8 @@ export default function WaitersData(db) {
     scheduleList,
     moveWaiter,
     removeWaiter,
+    deleteWaiters,
+    checkName,
+    checkNameInDay,
   };
 }

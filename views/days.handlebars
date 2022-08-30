@@ -4,13 +4,20 @@
     <div class="scheduleTable">
       <table class="scheduleList">
         <tr>
+
           <th class="scheduleDay sunday">Sun</th>
           <th class="scheduleDay monday">Mon</th>
+
           <th class="scheduleDay tuesday">Tue</th>
+
           <th class="scheduleDay wednesday">Wed</th>
+
           <th class="scheduleDay thursday">Thur</th>
+
           <th class="scheduleDay friday">Fri</th>
+
           <th class="scheduleDay saturday">Sat</th>
+
         </tr>
         <tr>
           <td>
@@ -69,6 +76,10 @@
     <div class="changes">
 
       <div class="updtSection">
+        <div class="errDiv">
+          <p class="err">{{messages.update}}</p>
+
+        </div>
         <form action="/update" class="updtForm" method="POST">
           <input
             type="text"
@@ -103,6 +114,10 @@
 
       </div>
       <div class="deleteSection">
+        <div class="errDiv errDiv2">
+          <p class="err err2">{{messages.delete}}</p>
+
+        </div>
         <form action="/delete" class="deleteForm" method="POST">
           <input
             type="text"
@@ -124,6 +139,10 @@
           <button type="submit" class="deleteBtn">DELETE</button>
         </form>
       </div>
+    </div>
+    <div class="links">
+      <a href="/clear" class="clear">clear schedule</a>
+      <a href="/" class="logOut">log out</a>
     </div>
   </div>
 </div>

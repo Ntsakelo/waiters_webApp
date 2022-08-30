@@ -17,8 +17,14 @@ html {
   margin: auto;
   top: 100px;
 }
+
 .daysProject {
-  height: 350px;
+  position: relative;
+  width: 70%;
+
+  background-color: white;
+  margin: auto;
+  top: 20px;
 }
 .nameSection {
   height: 450px;
@@ -44,19 +50,7 @@ html {
 .text {
   text-align: center;
 }
-.decoration {
-  height: 20px;
 
-  text-align: center;
-}
-.decoration div {
-  width: 10px;
-  height: 10px;
-  display: inline-block;
-  margin-left: 5px;
-  border-radius: 50%;
-  background-color: #d5cff2;
-}
 .errorDiv {
   border: 1px solid white;
   height: 32px;
@@ -109,8 +103,9 @@ form {
 .stateMessage {
   text-align: center;
   height: 20px;
-  color: rgb(40, 218, 40);
+  color: red;
 }
+
 .scheduleTxt {
   text-align: center;
 }
@@ -143,6 +138,11 @@ form {
 }
 .loginError {
   text-align: center;
+  height: 10px;
+}
+.loginMessage {
+  text-align: center;
+  color: red;
 }
 .password {
   display: block;
@@ -223,6 +223,7 @@ li {
   width: 300px;
   display: inline;
   float: left;
+
   box-shadow: 5px 5px 5px 5px #f4f3fe;
 }
 .updtForm {
@@ -268,8 +269,10 @@ li {
   width: 300px;
   display: inline;
   float: right;
+
   box-shadow: 5px 5px 5px 5px #f4f3fe;
 }
+
 .deletename {
   margin-top: 10px;
   margin-bottom: 20px;
@@ -298,9 +301,50 @@ li {
 .deleteBtn:hover {
   cursor: pointer;
 }
+.links {
+  margin-top: 20px;
+  text-align: center;
+}
+.clear {
+  display: block;
+  text-decoration: none;
+  border: 1px solid #bea8ff;
+  width: 150px;
+  margin: auto;
+  margin-bottom: 10px;
+  color: #9883d8;
+}
+.logOut {
+  display: block;
+  text-decoration: none;
+  border: 1px solid #bea8ff;
+  width: 150px;
+  margin: auto;
+  color: #9883d8;
+}
+.clear:hover {
+  background-color: #9883d8;
+  color: white;
+}
+.logOut:hover {
+  background-color: #9883d8;
+  color: white;
+}
 .unavailable {
   color: white;
   background-color: rgb(253, 135, 92);
+}
+/* Update error messages */
+.errDiv {
+  height: 30px;
+  width: 280px;
+  margin: auto;
+}
+.err {
+  color: red;
+  text-align: center;
+  padding: 0px;
+  margin: 0px;
 }
 .available {
   color: white;
@@ -330,20 +374,20 @@ li {
     width: 170px;
   }
 }
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 920px) {
   .scheduleTable {
     margin-bottom: 30px;
   }
   .scheduleSection {
     width: 100%;
-    height: 1000px;
+    height: 1100px;
     background-color: #9883d8;
   }
   .allSchedule {
-    height: 900px;
+    height: 1050px;
   }
   .changes {
-    height: 470px;
+    height: 650px;
     width: 100%;
     margin-top: 0px;
   }
@@ -357,6 +401,9 @@ li {
     display: block;
     margin: auto;
     float: none;
+  }
+  .links {
+    text-align: center;
   }
 }
 
@@ -378,7 +425,7 @@ li {
     width: 90%;
   }
   .daysProject {
-    height: 470px;
+    height: 600px;
   }
   .errorDiv {
     width: 200px;
@@ -393,11 +440,17 @@ li {
     margin: auto;
     margin-top: 7px;
   }
+  .adminProject {
+    height: 450px;
+  }
 }
 
 @media screen and (min-width: 520px) {
   .nameSection {
     height: 300px;
+  }
+  .daysProject {
+    height: 500px;
   }
 }
 @media screen and (max-width: 840px) {
@@ -408,13 +461,18 @@ li {
     margin-top: 5px;
   }
 }
-@media screen and (width: 1024px) {
+@media screen and (min-width: 1024px) {
   .changes {
-    width: 70%;
+    width: 65%;
   }
 }
 @media screen and (min-width: 1200px) {
   .changes {
-    width: 55%;
+    width: 50%;
+  }
+}
+@media screen and (min-width: 1300px) {
+  .changes {
+    width: 43%;
   }
 }

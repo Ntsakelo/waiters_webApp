@@ -58,6 +58,7 @@ app.get("/waiters/:username", waitersRoutes.chooseDays);
 app.post("/waiters/:username", waitersRoutes.submitSchedule);
 app.post("/update", waitersRoutes.updateWaiter);
 app.post("/delete", waitersRoutes.deleteWaiter);
+app.get("/clear", waitersRoutes.clearSchedule);
 //PORT
 var PORT = process.env.PORT || 3001;
 app.listen(PORT, function () {
