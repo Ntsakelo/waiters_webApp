@@ -130,8 +130,8 @@ export default function WaitersData(db) {
         let currentDay = weeklyDays[i];
         let schedObj = {};
         let results = await db.manyOrNone(
-          "select firstname,week_day from schedule_list where week_day =$1",
-          [currentDay]
+          "select firstname,day_id from waiters_names JOIN waiters_schedule ON waiters_names.id = waiters_schedule.name_id where waiters_schedule.day_id =$1",
+          [weeklyDays.indexOf(currentDay) + 1]
         );
         results.forEach((element) => {
           testingArr.push(element.firstname);
@@ -221,16 +221,14 @@ export default function WaitersData(db) {
       let waiterId = await getWaiterId(waiterName);
       let nowDayId = await newDayId(newDay);
       return await db.oneOrNone(
-        "select count(*) from schedule_list where name_id = $1 and day_id =$2",
+        "select count(*) from waiters_schedule where name_id = $1 and day_id =$2",
         [waiterId, nowDayId]
       );
     } catch (err) {
       console.log(err);
     }
   }
-  // function countWaiters(){
-  //   let function
-  // }
+
   //return
   return {
     populateDays,
