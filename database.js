@@ -101,8 +101,8 @@ export default function WaitersData(db) {
 
   ///Code refactor this logic
   async function compareDays(selectedDays) {
-    //week days => Monday, Tuesday, wednesday, thursday, friday, saturday, sunday
-    //selected days => Monday, thursday, saturday;
+   //Final product of this code example
+   //[{weekDay:'Monday', checkedState:false}]
     try {
       let isCheckedArr = [];
       let allArr = [];

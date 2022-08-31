@@ -123,14 +123,30 @@ form {
 }
 .scheduleBtn {
   height: 35px;
+  width: 100px;
   font-size: 17px;
   background-color: #9883d8;
   color: white;
   border: none;
   margin-top: 5px;
+  margin-bottom: 10px;
+  text-align: center;
 }
 .scheduleBtn:hover {
   cursor: pointer;
+}
+.goHome {
+  display: block;
+  text-decoration: none;
+  color: #9883d8;
+  margin-top: 10px;
+  border: 1px solid #9883d8;
+  width: 100px;
+  margin: auto;
+}
+.goHome:hover {
+  background-color: #9883d8;
+  color: white;
 }
 /* Login page */
 .loginTxt {
@@ -474,5 +490,10 @@ li {
 @media screen and (min-width: 1300px) {
   .changes {
     width: 43%;
+  }
+}
+@media screen and (width: 280px) {
+  .daysProject {
+    height: 630px;
   }
 }
