@@ -390,7 +390,7 @@ li {
     width: 170px;
   }
 }
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 1391px) {
   .scheduleTable {
     margin-bottom: 30px;
   }
@@ -477,19 +477,10 @@ li {
     margin-top: 5px;
   }
 }
-@media screen and (min-width: 1024px) {
-  .changes {
-    width: 65%;
-  }
-}
-@media screen and (min-width: 1200px) {
+
+@media screen and (min-width: 1391px) {
   .changes {
     width: 50%;
-  }
-}
-@media screen and (min-width: 1300px) {
-  .changes {
-    width: 43%;
   }
 }
 @media screen and (width: 280px) {
