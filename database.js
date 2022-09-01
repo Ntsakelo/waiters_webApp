@@ -101,8 +101,8 @@ export default function WaitersData(db) {
 
   ///Code refactor this logic
   async function compareDays(selectedDays) {
-   //Final product of this code example
-   //[{weekDay:'Monday', checkedState:false}]
+    //Final product of this code example
+    //[{weekDay:'Monday', checkedState:false}]
     try {
       let isCheckedArr = [];
       let allArr = [];
@@ -121,18 +121,59 @@ export default function WaitersData(db) {
       console.log(err);
     }
   }
+  async function checkOverBooked() {
+    try {
+      let weeklyDays = await populateDays();
+      let stateList = [];
+      for (let i = 0; i < weeklyDays.length; i++) {
+        let currentDay = weeklyDays[i];
+        let dayId = await currentDayId(currentDay);
+        let results = await db.manyOrNone(
+          "select firstname,day_id from waiters_names JOIN waiters_schedule ON waiters_names.id = waiters_schedule.name_id where waiters_schedule.day_id =$1",
+          [dayId]
+        );
+        if (results.length < 3) {
+          stateList.push("more");
+        } else if (results.length === 3) {
+          stateList.push("enough");
+        } else if (results.length > 3) {
+          stateList.push("over");
+        }
+      }
+      return stateList;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function daysOfSchedule() {
+    try {
+      let daysArr = [];
+      let weeklyDays = await populateDays();
+      let dayStatus = await checkOverBooked();
+      for (let i = 0; i < weeklyDays.length; i++) {
+        let daysObject = {};
+        daysObject["day"] = weeklyDays[i];
+        daysObject["dayStatus"] = dayStatus[i];
+        daysArr.push(daysObject);
+      }
+      return daysArr;
+    } catch (err) {}
+  }
   async function scheduleList() {
     try {
       let weeklyDays = await populateDays();
+
       let scheduleList = [];
       for (let i = 0; i < weeklyDays.length; i++) {
         let testingArr = [];
         let currentDay = weeklyDays[i];
+        let dayId = await currentDayId(currentDay);
         let schedObj = {};
         let results = await db.manyOrNone(
           "select firstname,day_id from waiters_names JOIN waiters_schedule ON waiters_names.id = waiters_schedule.name_id where waiters_schedule.day_id =$1",
-          [weeklyDays.indexOf(currentDay) + 1]
+          [dayId]
         );
+
         results.forEach((element) => {
           testingArr.push(element.firstname);
         });
@@ -141,6 +182,7 @@ export default function WaitersData(db) {
         }
         scheduleList.push(schedObj);
       }
+
       return scheduleList;
     } catch (err) {
       console.log(err);
@@ -241,5 +283,6 @@ export default function WaitersData(db) {
     deleteWaiters,
     checkName,
     checkNameInDay,
+    daysOfSchedule,
   };
 }

@@ -4,29 +4,13 @@
     <div class="scheduleTable">
       <table class="scheduleList">
         <tr>
-
-          <th class="scheduleDay sunday">Sun</th>
-          <th class="scheduleDay monday">Mon</th>
-
-          <th class="scheduleDay tuesday">Tue</th>
-
-          <th class="scheduleDay wednesday">Wed</th>
-
-          <th class="scheduleDay thursday">Thur</th>
-
-          <th class="scheduleDay friday">Fri</th>
-
-          <th class="scheduleDay saturday">Sat</th>
-
+          {{#each days}}
+            <th
+              class="scheduleDay {{this.day}} {{this.dayStatus}}"
+            >{{this.day}}</th>
+          {{/each}}
         </tr>
         <tr>
-          <td>
-            {{#each list}}
-              {{#each Sunday}}
-                <li>{{this}}</li>
-              {{/each}}
-            {{/each}}
-          </td>
           <td>
             {{#each list}}
               {{#each Monday}}
@@ -65,6 +49,13 @@
           <td>
             {{#each list}}
               {{#each Saturday}}
+                <li>{{this}}</li>
+              {{/each}}
+            {{/each}}
+          </td>
+          <td>
+            {{#each list}}
+              {{#each Sunday}}
                 <li>{{this}}</li>
               {{/each}}
             {{/each}}
@@ -125,7 +116,7 @@
             class="deletename"
             placeholder="Enter waiter name"
           />
-          <select name="currentDay" id="deleteFrom" class="deleteFrom">
+          <select name="removeDay" id="deleteFrom" class="deleteFrom">
             <option value="">REMOVE FROM</option>
             <option value="all">All</option>
             <option value="Monday">Monday</option>

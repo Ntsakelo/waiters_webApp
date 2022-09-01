@@ -346,9 +346,13 @@ li {
   background-color: #9883d8;
   color: white;
 }
-.unavailable {
+.more {
   color: white;
-  background-color: rgb(253, 135, 92);
+  background-color: orange;
+}
+.over {
+  color: white;
+  background-color: tomato;
 }
 /* Update error messages */
 .errDiv {
@@ -362,7 +366,7 @@ li {
   padding: 0px;
   margin: 0px;
 }
-.available {
+.enough {
   color: white;
   background-color: rgb(126, 211, 126);
 }

@@ -65,6 +65,7 @@ export default function WaitersRoutes(waiters, waitersData) {
     try {
       res.render("days", {
         list: await waitersData.scheduleList(),
+        days: await waitersData.daysOfSchedule(),
       });
     } catch (err) {
       next(err);
@@ -101,16 +102,26 @@ export default function WaitersRoutes(waiters, waitersData) {
         req.flash("update", "Missing some details!");
         res.redirect("/days");
       }
-      let results = await waitersData.checkNameInDay(waiterName, newDay);
+      let checkInNewDay = await waitersData.checkNameInDay(waiterName, newDay);
+      let checkInPrevDay = await waitersData.checkNameInDay(
+        waiterName,
+        currentDay
+      );
       let nameCheck = await waitersData.checkName(waiterName);
-      if (Number(results.count > 0)) {
-        req.flash("update", "Waiter already scheduled for this day!");
+      if (Number(checkInPrevDay.count < 0) && Number(checkInNewDay.count < 0)) {
+        req.flash("update", `${waiterName} is not scheduled for ${newDay}!`);
+        waiterName = "";
+        currentDay = "";
+        newDay = "";
+      }
+      if (Number(checkInNewDay.count > 0) && Number(checkInPrevDay.count > 0)) {
+        req.flash("update", `${waiterName} already scheduled for ${newDay}!`);
         waiterName = "";
         currentDay = "";
         newDay = "";
       }
       if (nameCheck === 0) {
-        req.flash("update", "Waiter not in schedule!");
+        req.flash("update", `${waiterName} not in schedule!`);
         waiterName = "";
         currentDay = "";
         newDay = "";
@@ -124,7 +135,7 @@ export default function WaitersRoutes(waiters, waitersData) {
   async function deleteWaiter(req, res, next) {
     try {
       let waiterName = req.body.deletename;
-      let currentDay = req.body.currentDay;
+      let currentDay = req.body.removeDay;
       if (!waiterName && !currentDay) {
         req.flash("delete", "No details provided!");
         res.redirect("/days");
