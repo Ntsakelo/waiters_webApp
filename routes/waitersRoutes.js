@@ -13,7 +13,8 @@ export default function WaitersRoutes(waiters, waitersData) {
   }
   async function nameEntry(req, res, next) {
     try {
-      let waiterName = req.body.name;
+      let name = req.body.name;
+      let waiterName = name.charAt(0).toUpperCase() + name.slice(1);
       waiters.getName(waiterName);
 
       req.flash("info", waiters.errorMessage());
@@ -22,8 +23,9 @@ export default function WaitersRoutes(waiters, waitersData) {
         return;
       }
       userName = waiterName;
+      let username = waiterName;
       days = await waitersData.checkedDays(waiterName);
-      res.redirect("/waiters/" + waiterName);
+      res.redirect("/waiters/" + username);
     } catch (err) {
       next(err);
     }
@@ -53,10 +55,17 @@ export default function WaitersRoutes(waiters, waitersData) {
         res.redirect("/waiters/" + username);
       }
       await waitersData.scheduleName(username, selectedDays);
+      await waitersData.compareDays(selectedDays);
       res.redirect("/waiters/" + username);
     } catch (err) {
       next(err);
     }
+  }
+
+  function scheduleSucess(req, res, next) {
+    res.render("success", {
+      waiterName: userName,
+    });
   }
   function showLogin(req, res) {
     res.render("admin");
@@ -179,5 +188,6 @@ export default function WaitersRoutes(waiters, waitersData) {
     updateWaiter,
     deleteWaiter,
     clearSchedule,
+    scheduleSucess,
   };
 }
