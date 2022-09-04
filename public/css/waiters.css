@@ -95,6 +95,11 @@ form {
 .adminLnk {
   text-decoration: none;
   color: #9883d8;
+  border: 1px solid #9883d8;
+}
+.adminLnk:hover {
+  background-color: #9883d8;
+  color: white;
 }
 /* days */
 .daysProject {

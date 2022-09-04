@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("yes");
   const daySelect = document.querySelectorAll(".daySelect");
   daySelect.forEach((day) => {
     if (day.classList.contains("true")) {

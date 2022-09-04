@@ -10,6 +10,13 @@ export default function WaitersData(db) {
       console.log(err);
     }
   }
+  async function retrieveNames() {
+    try {
+      return await db.manyOrNone("select * from waiters_names");
+    } catch (err) {
+      console.log(err);
+    }
+  }
   async function populateDays() {
     try {
       let weeklyDays = [];
@@ -99,10 +106,7 @@ export default function WaitersData(db) {
     }
   }
 
-  ///Code refactor this logic
   async function compareDays(selectedDays) {
-    //Final product of this code example
-    //[{weekDay:'Monday', checkedState:false}]
     try {
       let isCheckedArr = [];
       let allArr = [];
@@ -275,6 +279,7 @@ export default function WaitersData(db) {
   return {
     populateDays,
     scheduleName,
+    retrieveNames,
     checkedDays,
     compareDays,
     scheduleList,
