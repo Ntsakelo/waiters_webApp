@@ -21,9 +21,9 @@ jobs:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_USER: coder
+          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postUser123
-          POSTGRES_DB: waiters_availability_tests
+          POSTGRES_DB: postgres
         ports:
           - 5432:5432
         # Set health checks to wait until postgres has started
