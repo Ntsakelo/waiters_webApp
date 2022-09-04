@@ -38,8 +38,8 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: create postgresql tables
-        run: PGPASSWORD=postUser123 psql -h localhost -U postgres -d waiters_availability_tests -a -f ./tables.sql
+        run: PGPASSWORD=postUser123 psql -h localhost -U coder -d waiters_availability_tests -a -f ./tables.sql
       - name: run tests with postgresql
         run: npm test
         env:
-          DATABASE_URL: postgresql://localhost:5432/waiters_availability_tests
+          DATABASE_URL: postgresql://coder:pg123@localhost:5432/waiters_availability_tests
