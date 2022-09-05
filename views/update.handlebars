@@ -1,0 +1,79 @@
+<div class="mainSection">
+  <div class="UpdateSection">
+    <div class="headDiv">
+      <h1 class="head">Admin</h1>
+    </div>
+    <p class="updateTxt">You can reschedule the waiters below or delete the
+      waiters by entering the waiter's name and selecting the appropriate days
+      as described below</p>
+    <div class="changes">
+
+      <div class="updtSection">
+        <div class="errDiv">
+          <p class="err">{{messages.update}}</p>
+
+        </div>
+        <form action="/update" class="updtForm" method="POST">
+          <input
+            type="text"
+            name="updtname"
+            class="updtname"
+            placeholder="Enter waiter name"
+          />
+
+          <select name="currentDay" id="fromDays" class="fromDays">
+            <option value="">MOVE FROM</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+          </select>
+
+          <select name="newDay" id="toDays" class="toDays">
+            <option value="">MOVE TO</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+          </select>
+          <button type="submit" class="updtBtn">UPDATE</button>
+        </form>
+
+      </div>
+      <div class="deleteSection">
+        <div class="errDiv errDiv2">
+          <p class="err err2">{{messages.delete}}</p>
+
+        </div>
+        <form action="/delete" class="deleteForm" method="POST">
+          <input
+            type="text"
+            name="deletename"
+            class="deletename"
+            placeholder="Enter waiter name"
+          />
+          <select name="removeDay" id="deleteFrom" class="deleteFrom">
+            <option value="">REMOVE FROM</option>
+            <option value="all">All</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+          </select>
+          <button type="submit" class="deleteBtn">REMOVE</button>
+        </form>
+      </div>
+    </div>
+    <a href="/days" class="goBack">View schedule</a>
+
+  </div>
+</div>

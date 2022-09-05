@@ -7,7 +7,7 @@ export default function Waiters() {
     if (val === "") {
       isValid = "empty";
     }
-    if (/^[A-Z]\D\w+\D$/.test(val)) {
+    if (/^([A-Z])\D\w+\D$/.test(val)) {
       userName = val;
     } else {
       userName = "";

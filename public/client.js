@@ -12,6 +12,11 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
   let errorMessage = document.querySelector(".err");
   let errorMessage2 = document.querySelector(".err2");
+  if (errorMessage.innerHTML.includes("Successfully")) {
+    errorMessage.setAttribute("style", "color:green");
+  } else {
+    errorMessage.setAttribute("style", "color:red");
+  }
 
   if (errorMessage.innerHTML !== "") {
     setTimeout(function () {
@@ -37,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 document.addEventListener("DOMContentLoaded", function () {
   let errorMessage = document.querySelector(".loginMessage");
-  // let daySelect = document.querySelector(".daySelect");
 
   if (errorMessage.innerHTML !== "") {
     setTimeout(function () {
@@ -47,7 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("yes");
   const daySelect = document.querySelectorAll(".daySelect");
   daySelect.forEach((day) => {
     if (day.classList.contains("true")) {

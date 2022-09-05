@@ -60,6 +60,7 @@ app.post("/update", waitersRoutes.updateWaiter);
 app.post("/delete", waitersRoutes.deleteWaiter);
 app.get("/clear", waitersRoutes.clearSchedule);
 app.get("/sucess/:username", waitersRoutes.scheduleSucess);
+app.get("/admin", waitersRoutes.showUpdate);
 
 //PORT
 var PORT = process.env.PORT || 3001;

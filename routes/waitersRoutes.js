@@ -99,6 +99,10 @@ export default function WaitersRoutes(waiters, waitersData) {
       res.redirect("/login");
     }
   }
+  //Updating
+  function showUpdate(req, res, next) {
+    res.render("update");
+  }
   async function updateWaiter(req, res, next) {
     try {
       let waiterName = req.body.updtname;
@@ -106,10 +110,10 @@ export default function WaitersRoutes(waiters, waitersData) {
       let newDay = req.body.newDay;
       if (!waiterName && !currentDay && !newDay) {
         req.flash("update", "No details provided!");
-        res.redirect("/days");
+        res.redirect("/admin");
       } else if (!waiterName || !currentDay || !newDay) {
         req.flash("update", "Missing some details!");
-        res.redirect("/days");
+        res.redirect("/admin");
       }
       let checkInNewDay = await waitersData.checkNameInDay(waiterName, newDay);
       let checkInPrevDay = await waitersData.checkNameInDay(
@@ -117,14 +121,21 @@ export default function WaitersRoutes(waiters, waitersData) {
         currentDay
       );
       let nameCheck = await waitersData.checkName(waiterName);
-      if (Number(checkInPrevDay.count < 0) && Number(checkInNewDay.count < 0)) {
-        req.flash("update", `${waiterName} is not scheduled for ${newDay}!`);
+
+      if (Number(checkInPrevDay.count <= 0)) {
+        req.flash(
+          "update",
+          `${waiterName} is not scheduled for ${currentDay}!`
+        );
         waiterName = "";
         currentDay = "";
         newDay = "";
       }
       if (Number(checkInNewDay.count > 0) && Number(checkInPrevDay.count > 0)) {
-        req.flash("update", `${waiterName} already scheduled for ${newDay}!`);
+        req.flash(
+          "update",
+          `${waiterName} is already scheduled for ${newDay}!`
+        );
         waiterName = "";
         currentDay = "";
         newDay = "";
@@ -135,8 +146,14 @@ export default function WaitersRoutes(waiters, waitersData) {
         currentDay = "";
         newDay = "";
       }
-      await waitersData.moveWaiter(waiterName, currentDay, newDay);
-      res.redirect("/days");
+      if (
+        Number(checkInNewDay.count <= 0) &&
+        Number(checkInPrevDay.count > 0)
+      ) {
+        await waitersData.moveWaiter(waiterName, currentDay, newDay);
+        req.flash("update", `Successfully rescheduled ${waiterName}`);
+      }
+      res.redirect("/admin");
     } catch (err) {
       next(err);
     }
@@ -147,10 +164,10 @@ export default function WaitersRoutes(waiters, waitersData) {
       let currentDay = req.body.removeDay;
       if (!waiterName && !currentDay) {
         req.flash("delete", "No details provided!");
-        res.redirect("/days");
+        res.redirect("/admin");
       } else if (!waiterName || !currentDay) {
         req.flash("delete", "Missing some details!");
-        res.redirect("/days");
+        res.redirect("/admin");
       }
       let results = await waitersData.checkNameInDay(waiterName, currentDay);
       let nameCheck = await waitersData.checkName(waiterName);
@@ -164,7 +181,7 @@ export default function WaitersRoutes(waiters, waitersData) {
         currentDay = "";
       }
       await waitersData.removeWaiter(waiterName, currentDay);
-      res.redirect("/days");
+      res.redirect("/admin");
     } catch (err) {
       next(err);
     }
@@ -185,6 +202,7 @@ export default function WaitersRoutes(waiters, waitersData) {
     submitSchedule,
     viewSchedule,
     schedulePage,
+    showUpdate,
     updateWaiter,
     deleteWaiter,
     clearSchedule,
