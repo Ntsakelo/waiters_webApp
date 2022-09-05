@@ -200,11 +200,11 @@ form {
   background-color: #9883d8;
 }
 .allSchedule {
-  height: 350px;
+  height: 700px;
   width: 95%;
   background-color: white;
   position: relative;
-  top: 100px;
+  top: 20px;
   margin: auto;
 }
 .scheduleTable {
@@ -233,26 +233,9 @@ li {
   margin-bottom: 5px;
   width: 70px;
 }
-/* update and delete */
-.mainSection {
-  width: 100%;
-  height: 900px;
-  background-color: #9883d8;
-}
-.updateSection {
-  position: relative;
-  width: 90%;
-  height: 95%;
-  background-color: white;
-  margin: auto;
-  top: 2.5%;
-}
-.updateTxt {
-  text-align: center;
-}
 .changes {
   height: 300px;
-  width: 50%;
+  width: 65%;
   margin: auto;
   margin-top: 50px;
 }
@@ -339,35 +322,9 @@ li {
 .deleteBtn:hover {
   cursor: pointer;
 }
-.goBack {
-  display: block;
-  text-decoration: none;
-  border: 1px solid #bea8ff;
-  width: 150px;
-  margin: auto;
-  margin-top: 15px;
-  color: #9883d8;
-}
-.goBack:hover {
-  background-color: #9883d8;
-  color: white;
-}
 .links {
   margin-top: 20px;
   text-align: center;
-}
-.makeChnges {
-  display: block;
-  text-decoration: none;
-  border: 1px solid #bea8ff;
-  width: 150px;
-  margin: auto;
-  margin-bottom: 10px;
-  color: #9883d8;
-}
-.makeChnges:hover {
-  background-color: #9883d8;
-  color: white;
 }
 .clear {
   display: block;
@@ -414,18 +371,12 @@ li {
   padding: 0px;
   margin: 0px;
 }
-.success {
-  color: green;
-  text-align: center;
-  padding: 0px;
-  margin: 0px;
-}
 .enough {
   color: white;
   background-color: rgb(126, 211, 126);
 }
 /* Media queries */
-/* @media screen and (width: 280px) {
+@media screen and (width: 280px) {
   .updtSection {
     width: 200px;
   }
@@ -447,26 +398,18 @@ li {
   .deleteFrom {
     width: 170px;
   }
-  .mainSection {
-    display: absolute;
-    margin: auto;
-    padding: 0px;
-  }
-} */
-@media screen and (max-width: 1390px) {
+}
+@media screen and (max-width: 1020px) {
   .scheduleTable {
     margin-bottom: 30px;
   }
-  .mainSection {
-    width: 100%;
-  }
   .scheduleSection {
     width: 100%;
-    height: 100vh;
+    height: 1100px;
     background-color: #9883d8;
   }
   .allSchedule {
-    height: 370px;
+    height: 1050px;
   }
   .changes {
     height: 650px;
@@ -483,9 +426,6 @@ li {
     display: block;
     margin: auto;
     float: none;
-  }
-  .goBack {
-    margin-top: 0px;
   }
   .links {
     text-align: center;
@@ -547,16 +487,9 @@ li {
   }
 }
 
-@media screen and (min-width: 1391px) {
+@media screen and (min-width: 1280px) {
   .changes {
-    width: 50%;
-  }
-  .updateSection {
-    height: 500px;
-    top: 130px;
-  }
-  .mainSection {
-    height: 100vh;
+    width: 52%;
   }
 }
 @media screen and (width: 280px) {
