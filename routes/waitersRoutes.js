@@ -42,6 +42,7 @@ export default function WaitersRoutes(waiters, waitersData) {
       next(err);
     }
   }
+
   async function submitSchedule(req, res, next) {
     try {
       let username = req.params.username;
@@ -55,18 +56,14 @@ export default function WaitersRoutes(waiters, waitersData) {
         res.redirect("/waiters/" + username);
       }
       await waitersData.scheduleName(username, selectedDays);
-      await waitersData.compareDays(selectedDays);
+      days = await waitersData.checkedDays(username);
+
       res.redirect("/waiters/" + username);
     } catch (err) {
       next(err);
     }
   }
 
-  function scheduleSucess(req, res, next) {
-    res.render("success", {
-      waiterName: userName,
-    });
-  }
   function showLogin(req, res) {
     res.render("admin");
   }
@@ -194,10 +191,8 @@ export default function WaitersRoutes(waiters, waitersData) {
     submitSchedule,
     viewSchedule,
     schedulePage,
-
     updateWaiter,
     deleteWaiter,
     clearSchedule,
-    scheduleSucess,
   };
 }
