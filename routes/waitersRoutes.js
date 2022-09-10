@@ -115,8 +115,12 @@ export default function WaitersRoutes(waiters, waitersData) {
         currentDay
       );
       let nameCheck = await waitersData.checkName(waiterName);
-
-      if (Number(checkInPrevDay.count <= 0)) {
+      if (nameCheck === 0) {
+        req.flash("update", `${waiterName} is not in schedule!`);
+        waiterName = "";
+        currentDay = "";
+        newDay = "";
+      } else if (Number(checkInPrevDay.count <= 0)) {
         req.flash(
           "update",
           `${waiterName} is not scheduled for ${currentDay}!`
@@ -124,18 +128,14 @@ export default function WaitersRoutes(waiters, waitersData) {
         waiterName = "";
         currentDay = "";
         newDay = "";
-      }
-      if (Number(checkInNewDay.count > 0) && Number(checkInPrevDay.count > 0)) {
+      } else if (
+        Number(checkInNewDay.count > 0) &&
+        Number(checkInPrevDay.count > 0)
+      ) {
         req.flash(
           "update",
           `${waiterName} is already scheduled for ${newDay}!`
         );
-        waiterName = "";
-        currentDay = "";
-        newDay = "";
-      }
-      if (nameCheck === 0) {
-        req.flash("update", `${waiterName} not in schedule!`);
         waiterName = "";
         currentDay = "";
         newDay = "";
@@ -164,8 +164,9 @@ export default function WaitersRoutes(waiters, waitersData) {
         req.flash("delete", `${waiterName} not scheduled for ${currentDay}!`);
         waiterName = "";
         currentDay = "";
-      } else if (nameCheck === 0) {
-        req.flash("delete", `${waiterName} not in schedule!`);
+      }
+      if (nameCheck === 0) {
+        req.flash("delete", `${waiterName} is not in schedule!`);
         waiterName = "";
         currentDay = "";
       }

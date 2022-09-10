@@ -491,6 +491,33 @@ li {
   .changes {
     width: 52%;
   }
+  form div {
+    display: inline-block;
+
+    height: 50px;
+  }
+  .scheduleBtn {
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .label {
+    margin-left: 2px;
+
+    height: 15px;
+  }
+  .day {
+    margin: 2px;
+
+    height: 15px;
+    display: block;
+    margin: auto;
+  }
+  .daysProject {
+    width: 90%;
+    height: 300px;
+  }
 }
 @media screen and (width: 280px) {
   .daysProject {
