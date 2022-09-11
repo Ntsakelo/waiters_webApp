@@ -163,7 +163,10 @@ export default function WaitersRoutes(waiters, waitersData) {
       let results = await waitersData.checkNameInDay(waiterName, currentDay);
       let nameCheck = await waitersData.checkName(waiterName);
       if (nameCheck > 0 && currentDay !== "all" && Number(results.count <= 0)) {
-        req.flash("delete", `${waiterName} not scheduled for ${currentDay}!`);
+        req.flash(
+          "delete",
+          `${waiterName} is not scheduled for ${currentDay}!`
+        );
         waiterName = "";
         currentDay = "";
       }
