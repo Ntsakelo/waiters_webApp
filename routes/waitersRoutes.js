@@ -99,7 +99,8 @@ export default function WaitersRoutes(waiters, waitersData) {
 
   async function updateWaiter(req, res, next) {
     try {
-      let waiterName = req.body.updtname;
+      let name = req.body.updtname;
+      let waiterName = name.charAt(0).toUpperCase() + name.slice(1);
       let currentDay = req.body.currentDay;
       let newDay = req.body.newDay;
       if (!waiterName && !currentDay && !newDay) {
@@ -149,7 +150,8 @@ export default function WaitersRoutes(waiters, waitersData) {
   }
   async function deleteWaiter(req, res, next) {
     try {
-      let waiterName = req.body.deletename;
+      let name = req.body.deletename;
+      let waiterName = name.charAt(0).toUpperCase() + name.slice(1);
       let currentDay = req.body.removeDay;
       if (!waiterName && !currentDay) {
         req.flash("delete", "No details provided!");
