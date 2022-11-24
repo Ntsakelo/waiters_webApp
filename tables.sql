@@ -6,7 +6,10 @@ CREATE TABLE working_days (
 
 CREATE TABLE waiters_names (
     id serial primary key not null,
-    firstName text not null
+    firstname text not null,
+    lastname text not null,
+    email text not null,
+    password text not null
 );
 CREATE TABLE waiters_schedule(
    id serial primary key not null,

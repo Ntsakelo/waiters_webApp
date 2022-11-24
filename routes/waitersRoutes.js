@@ -1,9 +1,11 @@
 import flash from "express-flash";
-
+import bcrypt from "bcrypt";
 export default function WaitersRoutes(waiters, waitersData) {
   let days;
   let userName = "";
-
+  function registration(req, res) {
+    res.render("register");
+  }
   function defaultEntry(req, res) {
     res.render("index", {
       errorStyle: waiters.errorMessage().includes("Perfect")
@@ -11,21 +13,71 @@ export default function WaitersRoutes(waiters, waitersData) {
         : "danger",
     });
   }
+  async function registerUser(req, res, next) {
+    try {
+      let firstname = req.body.firstName;
+      let lastname = req.body.lastName;
+      let email = req.body.email;
+      let password = req.body.password;
+      let capitalName = firstname.charAt(0).toUpperCase() + firstname.slice(1);
+      let capitalLstName = lastname.charAt(0).toUpperCase() + lastname.slice(1);
+      if (firstname && lastname && email && password) {
+        let results = await waitersData.checkIfRegistered(
+          capitalName,
+          capitalLstName,
+          email
+        );
+        if (results) {
+          req.flash("register", "User already exists");
+          return res.redirect("/register");
+        } else if (!results) {
+          let hashedPassword = await bcrypt.hash(password, 10);
+          await waitersData.registerUser(
+            capitalName,
+            capitalLstName,
+            email,
+            hashedPassword
+          );
+          req.flash("register", "Successfully registered");
+          res.redirect("/register");
+        }
+      } else {
+        req.flash("register", "Please supply all the details");
+        return res.redirect("/register");
+      }
+    } catch (err) {
+      next(err);
+    }
+  }
   async function nameEntry(req, res, next) {
     try {
-      let name = req.body.name;
-      let waiterName = name.charAt(0).toUpperCase() + name.slice(1);
-      waiters.getName(waiterName);
+      let email = req.body.loginEmail;
+      let password = req.body.loginPassword;
+      let results = await waitersData.logIn(email);
+      if (!password && !email) {
+        req.flash("info", "Please enter your login details");
+        return res.redirect("/");
+      } else if (!results) {
+        req.flash("info", "The user does not exist");
+        return res.redirect("/");
+      } else if (results) {
+        let isPassword = await bcrypt.compare(password, results.password);
+        if (!isPassword) {
+          req.flash("info", "Incorrect login details provided");
+          return res.redirect("/");
+        } else if (isPassword) {
+          req.session.user = results;
 
-      req.flash("info", waiters.errorMessage());
-      if (waiters.waiterName() === "") {
-        res.redirect("/");
-        return;
+          if (results.email === "admin@gmail.com") {
+            return res.redirect("/days");
+          }
+          userName = results.firstname;
+          let username = results.firstname;
+          days = await waitersData.checkedDays(results.firstname);
+          waiters.getName(username);
+          res.redirect("/waiters/" + username);
+        }
       }
-      userName = waiterName;
-      let username = waiterName;
-      days = await waitersData.checkedDays(waiterName);
-      res.redirect("/waiters/" + username);
     } catch (err) {
       next(err);
     }
@@ -47,18 +99,25 @@ export default function WaitersRoutes(waiters, waitersData) {
     try {
       let username = req.params.username;
       let selectedDays = req.body.day;
+      let theType = typeof selectedDays;
 
+      let results = await waitersData.checkedDays(username);
+      if (results) {
+        await waitersData.checkIfReschedule(username);
+      }
       if (!selectedDays) {
         req.flash("schedule", "Please select days below!");
-        res.redirect("/waiters/" + username);
-      } else if (selectedDays.length < 3 && selectedDays.length >= 1) {
+        return res.redirect("/waiters/" + username);
+      } else if (selectedDays.length < 3 || theType === "string") {
         req.flash("schedule", "Please select atleast 3 days!");
+        return res.redirect("/waiters/" + username);
+      } else if (selectedDays.length >= 3) {
+        await waitersData.scheduleName(username, selectedDays);
+        days = await waitersData.checkedDays(username);
+        await waitersData.compareDays(days);
+        req.flash("schedule", "Successfully scheduled days");
         res.redirect("/waiters/" + username);
       }
-      await waitersData.scheduleName(username, selectedDays);
-      days = await waitersData.checkedDays(username);
-
-      res.redirect("/waiters/" + username);
     } catch (err) {
       next(err);
     }
@@ -189,7 +248,17 @@ export default function WaitersRoutes(waiters, waitersData) {
       next(err);
     }
   }
+  function logOut(req, res, next) {
+    try {
+      delete req.session.user;
+      res.redirect("/");
+    } catch (err) {
+      next(err);
+    }
+  }
   return {
+    registration,
+    registerUser,
     defaultEntry,
     showLogin,
     nameEntry,
@@ -200,5 +269,6 @@ export default function WaitersRoutes(waiters, waitersData) {
     updateWaiter,
     deleteWaiter,
     clearSchedule,
+    logOut,
   };
 }

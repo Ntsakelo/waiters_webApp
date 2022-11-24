@@ -32,10 +32,13 @@
             
         {{/each}}
           {{#if selectedDays}}
-            <button class="scheduleBtn" type="submit">UPDATE</button>
+            <button class="scheduleBtn" type="submit">Update</button>
             {{else}}
-            <button class="scheduleBtn" type="submit">SCHEDULE</button>
+            <button class="scheduleBtn" type="submit">Schedule</button>
             {{/if}}
-             <a href="/" class="goHome">homepage</a>
+          </form>
+          <form action="/logout" method="get">
+             <button class="goHome">Logout</button>
+          
           </form>
         

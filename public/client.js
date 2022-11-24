@@ -8,6 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
       errorMessage.classList.add("noShow");
     }, 3000);
   }
+  if (errorMessage.innerHTML.includes("Successfully")) {
+    errorMessage.setAttribute("style", "color:green");
+  } else {
+    errorMessage.setAttribute("style", "color:red");
+  }
 });
 document.addEventListener("DOMContentLoaded", function () {
   let errorMessage = document.querySelector(".err");
@@ -31,15 +36,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 3000);
   }
 });
-document.addEventListener("DOMContentLoaded", function () {
-  let stateMessage = document.querySelector(".state");
-  if (stateMessage.innerHTML !== "") {
-    setTimeout(function () {
-      stateMessage.innerHTML = "";
-      stateMessage.classList.add("noShow");
-    }, 3000);
-  }
-});
+// document.addEventListener("DOMContentLoaded", function () {
+//   let stateMessage = document.querySelector(".state");
+//   if (stateMessage.innerHTML !== "") {
+//     setTimeout(function () {
+//       stateMessage.innerHTML = "";
+//       stateMessage.classList.add("noShow");
+//     }, 3000);
+//   }
+//   if (stateMessage.innerHTML.includes("Successfully")) {
+//     errorMessage.setAttribute("style", "color:green");
+//   } else {
+//     stateMessage.setAttribute("style", "color:red");
+//   }
+// });
 document.addEventListener("DOMContentLoaded", function () {
   let errorMessage = document.querySelector(".loginMessage");
 
@@ -52,9 +62,21 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 document.addEventListener("DOMContentLoaded", function () {
   const daySelect = document.querySelectorAll(".daySelect");
+  let stateMessage = document.querySelector(".state");
   daySelect.forEach((day) => {
     if (day.classList.contains("true")) {
       day.checked = true;
     }
   });
+  if (stateMessage.innerHTML !== "") {
+    setTimeout(function () {
+      stateMessage.innerHTML = "";
+      stateMessage.classList.add("noShow");
+    }, 3000);
+  }
+  if (stateMessage.innerHTML.includes("Successfully")) {
+    stateMessage.setAttribute("style", "color:green");
+  } else {
+    stateMessage.setAttribute("style", "color:red");
+  }
 });

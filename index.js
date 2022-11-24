@@ -48,17 +48,39 @@ app.use(express.static("public"));
 const waiters = Waiters();
 const waitersData = WaitersData(db);
 const waitersRoutes = WaitersRoutes(waiters, waitersData);
-
 app.get("/", waitersRoutes.defaultEntry);
-app.post("/waiters", waitersRoutes.nameEntry);
+
+app.get("/register", waitersRoutes.registration);
+app.post("/register", waitersRoutes.registerUser);
 app.get("/login", waitersRoutes.showLogin);
-app.get("/days", waitersRoutes.schedulePage);
 app.post("/login", waitersRoutes.viewSchedule);
+app.post("/waiters", waitersRoutes.nameEntry);
+app.use(function (req, res, next) {
+  let user = req.session.user;
+
+  if (req.path === "/register" || req.path === "/") {
+    next();
+  } else {
+    if (!user) {
+      return res.redirect("/");
+    } else if (user) {
+      if (req.path === "/days" && !user.email.includes("admin")) {
+        res.redirect("/waiters/" + user.firstname);
+        return;
+      } else if (req.path === "/days" && user.email.includes("admin")) {
+        return next();
+      }
+      next();
+    }
+  }
+});
+app.get("/days", waitersRoutes.schedulePage);
 app.get("/waiters/:username", waitersRoutes.chooseDays);
 app.post("/waiters/:username", waitersRoutes.submitSchedule);
 app.post("/update", waitersRoutes.updateWaiter);
 app.post("/delete", waitersRoutes.deleteWaiter);
 app.get("/clear", waitersRoutes.clearSchedule);
+app.get("/logout", waitersRoutes.logOut);
 
 //PORT
 var PORT = process.env.PORT || 3001;

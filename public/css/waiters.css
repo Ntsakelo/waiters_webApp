@@ -27,7 +27,7 @@ html {
   top: 20px;
 }
 .nameSection {
-  height: 450px;
+  height: 470px;
   position: relative;
   width: 70%;
   /* height: 280px; */
@@ -47,7 +47,8 @@ html {
   display: block;
   color: white;
 }
-.text {
+.text,
+.registerTxt {
   text-align: center;
 }
 
@@ -73,7 +74,11 @@ html {
 form {
   text-align: center;
 }
-.inputName {
+.loginInput,
+.registerInput {
+  display: block;
+  margin: auto;
+  margin-bottom: 10px;
   height: 35px;
   font-size: 17px;
   outline: none;
@@ -89,19 +94,15 @@ form {
 .proceedBtn:hover {
   cursor: pointer;
 }
-.inputName::placeholder {
-  font-size: 20px;
-}
+
 .adminLnk {
   text-decoration: none;
   color: #9883d8;
-  border: 1px solid #9883d8;
+
+  display: block;
+  margin: auto;
 }
-.adminLnk:hover {
-  background-color: #9883d8;
-  color: white;
-}
-/* days */
+
 .daysProject {
   height: 420px;
 }
@@ -137,7 +138,8 @@ form {
   margin-bottom: 10px;
   text-align: center;
 }
-.scheduleBtn:hover {
+.scheduleBtn:hover,
+.registerBtn:hover {
   cursor: pointer;
 }
 .goHome {
@@ -147,7 +149,14 @@ form {
   margin-top: 10px;
   border: 1px solid #9883d8;
   width: 100px;
+  height: 35px;
+  font-size: 17px;
   margin: auto;
+  background-color: white;
+  cursor: pointer;
+}
+.homeLink {
+  text-decoration: none;
 }
 .goHome:hover {
   background-color: #9883d8;
@@ -157,11 +166,16 @@ form {
 .loginTxt {
   text-align: center;
 }
-.loginError {
+.loginError,
+.registerError {
   text-align: center;
   height: 10px;
 }
-.loginMessage {
+.registerError {
+  margin-bottom: 10px;
+}
+.loginMessage,
+.registerMessage {
   text-align: center;
   color: red;
 }
@@ -173,21 +187,25 @@ form {
   outline: none;
   border: 1px solid #bea8ff;
 }
-.userName {
-  display: block;
-  margin: auto;
-  height: 30px;
-  font-size: 17px;
-  outline: none;
-  border: 1px solid #bea8ff;
-  margin-bottom: 20px;
-}
-.loginBtn {
+.loginBtn,
+.registerBtn {
   height: 35px;
   font-size: 17px;
   background-color: #9883d8;
   color: white;
   border: none;
+  margin-top: 10px;
+}
+.goToRegister,
+.goToLogin {
+  display: block;
+  color: #9883d8;
+
+  width: 200px;
+  margin: auto;
+  margin-top: 10px;
+}
+.registerBtn {
   margin-top: 10px;
 }
 .loginBtn:hover {
@@ -365,6 +383,9 @@ li {
   width: 280px;
   margin: auto;
 }
+.errorMsg {
+  text-align: center;
+}
 .err {
   color: red;
   text-align: center;
@@ -374,6 +395,9 @@ li {
 .enough {
   color: white;
   background-color: rgb(126, 211, 126);
+}
+#registerProject {
+  height: 400px;
 }
 /* Media queries */
 @media screen and (width: 280px) {
@@ -472,7 +496,7 @@ li {
 
 @media screen and (min-width: 520px) {
   .nameSection {
-    height: 300px;
+    height: 350px;
   }
   .daysProject {
     height: 500px;

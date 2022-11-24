@@ -1,0 +1,42 @@
+<div class="main">
+  <div class="project adminProject" id="registerProject">
+    <div class="headDiv adminHead" id="registerHead">
+      <h1 class="head">Register</h1>
+    </div>
+    <p class="registerTxt">Enter details below to register as a new user</p>
+    <hr />
+    <div class="registerError">
+      <p class="errorMsg">{{messages.register}}</p>
+    </div>
+    <div class="register">
+      <form action="/register" method="post" class="registerForm">
+        <input
+          type="text"
+          name="firstName"
+          class="userName registerInput"
+          placeholder="Firstname"
+        />
+        <input
+          type="text"
+          class="lastName registerInput"
+          name="lastName"
+          placeholder="Lastname"
+        />
+        <input
+          type="email"
+          class="email registerInput"
+          name="email"
+          placeholder="Email address"
+        />
+        <input
+          type="password"
+          name="password"
+          class="password registerInput"
+          placeholder="Password"
+        />
+        <button type="submit" class="registerBtn">Register</button>
+        <a href="/" class="goToLogin">Already have an account</a>
+      </form>
+    </div>
+  </div>
+</div>

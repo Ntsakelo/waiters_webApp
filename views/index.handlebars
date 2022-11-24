@@ -13,8 +13,8 @@
           <h1 class="head">Waiter Schedule</h1>
         </div>
         <p class="text">
-          Please enter your name below and proceed to selecting the days you
-          will be available to work
+          Please enter your log in details below and proceed to selecting the
+          days you will be available to work
         </p>
 
         <hr />
@@ -24,15 +24,21 @@
         <div class="form">
           <form action="/waiters" method="POST">
             <input
-              type="text"
-              name="name"
-              class="inputName"
-              placeholder="Enter your name"
+              type="email"
+              name="loginEmail"
+              class="inputEmail loginInput"
+              placeholder="Email address"
               autocomplete="off"
             />
-            <button class="proceedBtn" type="submit">PROCEED</button>
-            <p class="optionTxt">OR</p>
-            <a href="/login" class="adminLnk">See schedule</a>
+            <input
+              type="password"
+              name="loginPassword"
+              class="inputPassword loginInput"
+              placeholder="Password"
+            />
+            <button class="proceedBtn" type="submit">Login</button>
+            <a href="/Register" class="goToRegister">Don't have an account</a>
+
           </form>
         </div>
       </div>

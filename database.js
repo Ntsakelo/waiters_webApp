@@ -46,25 +46,80 @@ export default function WaitersData(db) {
       console.log(err);
     }
   }
-  async function scheduleName(username, days) {
+  async function checkIfRegistered(firstname, lastname, email) {
     try {
-      let idList = await getDayId(days);
-      if ((await checkName(username)) > 0) {
-        await db.none("delete from waiters_names where firstname = $1", [
-          username,
-        ]);
-      }
-      if (idList.length >= 3) {
-        await db.none("insert into waiters_names (firstname) values ($1)", [
-          username,
-        ]);
+      let results = await db.oneOrNone(
+        "select * from waiters_names where firstname = $1 and lastname = $2 and email = $3",
+        [firstname, lastname, email]
+      );
+      return results;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function registerUser(firstname, lastname, email, password) {
+    try {
+      if ((firstname, lastname, email, password)) {
+        let list = [firstname, lastname, email, password];
+        let results = await db.oneOrNone(
+          "select count(*) from waiters_names where firstname = $1 and lastname = $2 and email=$3",
+          [firstname, lastname, email]
+        );
+        if (Number(results.count) > 0) {
+          return;
+        } else {
+          await db.none(
+            "insert into waiters_names(firstname,lastname,email,password) values($1,$2,$3,$4)",
+            list
+          );
+        }
       } else {
         return;
       }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function logIn(email) {
+    try {
+      let results = await db.oneOrNone(
+        "select * from waiters_names where email =$1",
+        [email]
+      );
+      return results;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function checkIfReschedule(username) {
+    try {
       let nameId = await db.oneOrNone(
         "select id from waiters_names where firstname = $1",
         [username]
       );
+      let results = await db.oneOrNone(
+        "select count(*) from waiters_schedule where name_id = $1",
+        [nameId.id]
+      );
+      if (Number(results.count) > 0) {
+        await db.none("delete from waiters_schedule where name_id = $1", [
+          nameId.id,
+        ]);
+      } else {
+        return;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function scheduleName(username, days) {
+    try {
+      let idList = await getDayId(days);
+      let nameId = await db.oneOrNone(
+        "select id from waiters_names where firstname = $1",
+        [username]
+      );
+
       for (let i = 0; i < idList.length; i++) {
         let dayId = idList[i];
         await db.none(
@@ -278,9 +333,13 @@ export default function WaitersData(db) {
   //return
   return {
     populateDays,
+    checkIfRegistered,
+    registerUser,
+    logIn,
     scheduleName,
     retrieveNames,
     checkedDays,
+    checkIfReschedule,
     compareDays,
     scheduleList,
     moveWaiter,
